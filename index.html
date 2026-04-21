@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin: 0;
+  height: 100vh;
+  background: linear-gradient(135deg, #ffd6e8, #ffeef7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* botão */
+.botao {
+  font-size: 28px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #ff4da6;
+  font-family: 'Quicksand';
+  animation: pulsar 1.5s infinite;
+}
+
+@keyframes pulsar {
+  0%,100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+/* envelope */
+.envelope {
+  width: 320px;
+  height: 200px;
+  background: #ffb6d9;
+  position: relative;
+  display: none;
+  border-radius: 10px;
+}
+
+/* aba */
+.flap {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #ff8fc4;
+  clip-path: polygon(0 0, 50% 50%, 100% 0);
+  transform-origin: top;
+  transition: transform 1s;
+}
+
+/* carta */
+.carta {
+  position: absolute;
+  width: 90%;
+  height: 90%;
+  background: white;
+  top: 5%;
+  left: 5%;
+  border-radius: 10px;
+  padding: 15px;
+  transform: translateY(100%);
+  transition: transform 1s;
+  text-align: center;
+}
+
+/* texto */
+.mensagem {
+  font-family: 'Pacifico', cursive;
+  font-size: 22px;
+  color: #c2185b;
+}
+
+/* animação */
+.aberto .flap {
+  transform: rotateX(180deg);
+}
+
+.aberto .carta {
+  transform: translateY(-10%);
+}
+
+/* corações */
+.coracao {
+  position: absolute;
+  font-size: 20px;
+  opacity: 0.6;
+  animation: subir linear infinite;
+}
+
+@keyframes subir {
+  from { transform: translateY(100vh); }
+  to { transform: translateY(-120vh); }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="musica" loop>
+  <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<button class="botao" onclick="abrir()">💖 aperte aqui 💖</button>
+
+<div class="envelope" id="envelope">
+  <div class="flap"></div>
+
+  <div class="carta">
+    <div class="mensagem">
+      eu amo você muito, minha nenenzina! 🤍<br><br>
+      Tô com muita saudade de tu<br>
+      de sua namoradinha hehe 💗<br><br>
+      <b>para: Shellcia Eduarda 💌</b>
+    </div>
+  </div>
+</div>
+
+<script>
+
+function abrir() {
+  document.querySelector(".botao").style.display = "none";
+
+  const env = document.getElementById("envelope");
+  env.style.display = "block";
+
+  setTimeout(() => {
+    env.classList.add("aberto");
+  }, 100);
+
+  // música
+  const m = document.getElementById("musica");
+  m.play();
+
+  // corações
+  for (let i = 0; i < 25; i++) {
+    const c = document.createElement("div");
+    c.classList.add("coracao");
+    c.innerHTML = "💖";
+
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.animationDuration = (6 + Math.random() * 6) + "s";
+
+    document.body.appendChild(c);
+  }
+}
+
+</script>
+
+</body>
+</html>
